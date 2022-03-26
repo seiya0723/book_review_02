@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Hello World test!!</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+    <h1 class="bg-primary">HelloWorld！！</h1>
+
+	<p>Hello World !!</p>
+    <p>Hello</p>
+    <!--
+    ここはコメント
+    -->
+
+    {# Django Template Languageでは {と#でコメントアウトができる #}
+    {# {{ 変数名 }} でcontextの中にある変数を表示させる。contextの辞書型のキー名を変数名に割り当て、それに対応する値を表示させる　#}
+    <p>{{ test }}</p>
+
+    <p>{{ numbers }}</p>
+    {# フィルタを使用して、データ表示時の外見を変えることができる。 #}
+    <p>{{ numbers|length }}件のデータが投稿されています。</p>
+
+    {# リスト型のデータを1つずつ出すには、forタグを使う。HTMLではPythonと違って字下げの判定ができない。そのため終わりのendforタグを書く #}
+    {% for number in numbers %}
+    <p>{{ number }}</p>
+    {% endfor %}
+
+    {{ flag }}
+
+    {# if文を使って条件分岐できる。表示するHTMLを変えることができる。終わりのendifも忘れずに #}
+    {% if flag %}
+    <div>あなたは認証済みです。<a href="#">ログアウトする</a></div>
+    {% else %}
+    <div>あなたは認証済みではありません。<a href="#">ログインする</a></div>
+    {% endif %}
+
+    {# formタグのaction属性は送信先、methodは送信のメソッドの指定 #}
+    <form action="" method="POST">
+        {# CSRFトークンを生成するcsrf_tokenを、POSTメソッド送信時にセットされていないと、拒否される。 #}
+        {% csrf_token %}
+        {# <input type="text" name="message"> #}
+        <input type="text" name="title">
+        <input type="text" name="comment">
+        <input type="submit" value="送信">
+    </form>
+
+    {% for topic in topics %}
+    <div>{{ topic.dt }}:{{ topic.title }}:{{ topic.comment }}</div>
+    {% endfor %}
+
+
+</body>
+</html>
